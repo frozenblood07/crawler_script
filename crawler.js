@@ -9,8 +9,6 @@ var runningWorkers = 0; // number of running workers.
 var startTime = new Date().getTime(); //starting time 
 var finalHref = []; //final array containing all the urls
 
-var counter = 0;
-
 function processRequest(maxConnections,callbackFunction) {
 	//if the array has no more urls call the callback function
   if(arrUrl.length == 0) {
@@ -24,7 +22,7 @@ function processRequest(maxConnections,callbackFunction) {
   console.log('Now running with '+ url, new Date().getTime() - startTime+" ms","No of running workers "+ runningWorkers);
   
   request(url, function(err,resp,body) { 
-    $ = cheerio.load(body);//process the body with cheerio
+    $ = cheerio.load(body); //process the body with cheerio
     links = $('a'); //jquery get all hyperlinks
     //loop through all the links and push them in the array for crawling + saving
     $(links).each(function(i, link){
@@ -41,7 +39,6 @@ function processRequest(maxConnections,callbackFunction) {
     }
     //finished doing this one url
     runningWorkers--; //decrease the number of running workers
-    counter++;
   });
   return;
 }
@@ -49,8 +46,6 @@ function processRequest(maxConnections,callbackFunction) {
 function crawl(maxConnections) {
   /*TO DO
   Bench Marking
-  Unit Test Cases
-  Better Implementation??
   Database Connection to Make Generic -- Redis/Mongo?
   */
   console.log('Crawling started');
@@ -67,7 +62,7 @@ function generateCSV() {
   } catch (err) {
     console.error(err);
   }
-
+  
   fs.writeFile('url.csv', csv, function(err) {
   if (err) throw err;
     console.log('file saved');

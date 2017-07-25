@@ -1,0 +1,13 @@
+{
+  "name": "crawler",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+  },
+  "dependencies": {
+    "request": "~2.81.0",
+    "cheerio": "~1.0.0-rc.2",
+    "json2csv": "~3.9.1",
+    "async":"~2.5.0"
+  }
+}
