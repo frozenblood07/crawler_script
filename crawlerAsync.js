@@ -11,6 +11,7 @@ var startTime = new Date().getTime(); //starting time
 var finalHref = []; //final array containing all the urls
 
 function crawl(maxConnections) {
+  console.log('Crawling started');
   var q = async.queue(function (url, next) {
     runningWorkers++;
     console.log('Now running with '+ url, new Date().getTime() - startTime+" ms","No of running workers "+ runningWorkers);
@@ -24,7 +25,7 @@ function crawl(maxConnections) {
         finalHref.push( {url: newUrl} ); //push urls into final array
         //remove all the relative urls and urls that are not medium
         if(newUrl.indexOf('http') !== -1 && newUrl.indexOf('medium') !== -1) {
-          //q.push(newUrl);
+          q.push(newUrl);
         }
       });
       runningWorkers--;
@@ -53,4 +54,6 @@ function generateCSV() {
   });
 }
 
-crawl(5);
+var args = process.argv.slice(2);
+var maxWorkers = (args.length == 0) ? 5 : parseInt(args[0]);
+crawl(maxWorkers);

@@ -70,4 +70,6 @@ function generateCSV() {
 }
 
 arrUrl.push(urlToCrawl);
-crawl(5);
+var args = process.argv.slice(2);
+var maxWorkers = (args.length == 0) ? 5 : parseInt(args[0]);
+crawl(maxWorkers);
