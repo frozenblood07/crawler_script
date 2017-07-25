@@ -25,11 +25,11 @@ function processRequest(maxConnections,callbackFunction) {
     $ = cheerio.load(body); //process the body with cheerio
     links = $('a'); //jquery get all hyperlinks
     //loop through all the links and push them in the array for crawling + saving
-    $(links).each(function(i, link){
+    $(links).each(function(i, link) {
       newUrl = $(link).attr('href');
       finalHref.push( {url: newUrl} ); //push urls into final array
       //remove all the relative urls and urls that are not medium
-      if(newUrl.indexOf('http') !== -1 && newUrl.indexOf('medium') !== -1){
+      if(newUrl.indexOf('http') !== -1 && newUrl.indexOf('medium') !== -1) {
         arrUrl.push(newUrl);
       }
     });
@@ -62,7 +62,7 @@ function generateCSV() {
   } catch (err) {
     console.error(err);
   }
-  
+
   fs.writeFile('url.csv', csv, function(err) {
   if (err) throw err;
     console.log('file saved');
